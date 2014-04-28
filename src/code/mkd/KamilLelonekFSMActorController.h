@@ -20,9 +20,11 @@ namespace kamillelonek_fsm
         void onEnter(State* prev_state);
 
 		bool shouldBeHealed();
-		bool enemyInRange();
+		Character* enemyInRange();
 
-    private:
+        virtual void onTakeDamage();
+
+    protected:
         float m_stateStartTime;
     };
 
@@ -33,8 +35,6 @@ namespace kamillelonek_fsm
 
         void onUpdate(float dt);
         void onEnter(State* prev_state);
-
-        virtual void onTakeDamage();
     };
 
     class AttackState : public BaseState
@@ -56,8 +56,5 @@ namespace kamillelonek_fsm
 		
         void onUpdate(float dt);
         void onEnter(State* prev_state);
-
-	private:
-        mkVec3 m_direction;
 	};
 }
