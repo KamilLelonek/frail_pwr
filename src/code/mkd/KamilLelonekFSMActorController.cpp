@@ -4,9 +4,9 @@
 #include "contrib/DebugDrawer.h"
 #include "Level.h"
 
-/*
-	CONTROLLER
-*/
+/******************
+	 CONTROLLER
+*******************/
 KamilLelonekFSMActorController::KamilLelonekFSMActorController( ActorAI* ai ) : StateMachineActorController(ai) {}
 
 void KamilLelonekFSMActorController::onCreate()
@@ -15,17 +15,17 @@ void KamilLelonekFSMActorController::onCreate()
     updateStateTransition();
 }
 
-/*
-	STATES
-*/
+/******************
+	   STATES
+*******************/
 kamillelonek_fsm::BaseState::BaseState		( KamilLelonekFSMActorController* controller )						: sm::State(controller), m_stateStartTime(-1.f) {}
 kamillelonek_fsm::PatrolState::PatrolState	( KamilLelonekFSMActorController* controller )						: kamillelonek_fsm::BaseState(controller) {}
 kamillelonek_fsm::SickState::SickState		( KamilLelonekFSMActorController* controller )						: kamillelonek_fsm::BaseState(controller) {}
 kamillelonek_fsm::AttackState::AttackState	( KamilLelonekFSMActorController* controller, Character* target )	: kamillelonek_fsm::BaseState(controller), m_target(target) {}
 
-/*
+/******************
 	STATE BASE
-*/
+*******************/
 KamilLelonekFSMActorController* kamillelonek_fsm::BaseState::getController() const
 {
     return static_cast<KamilLelonekFSMActorController*>(sm::State::getController());
@@ -73,11 +73,12 @@ Character* kamillelonek_fsm::BaseState::enemyInRange()
 void kamillelonek_fsm::BaseState::onTakeDamage()
 {
     getAI() -> runAnimation("Backflip", 800);
+	getAI() -> setDirection(getRandomHorizontalDir());
 }
 
-/*
+/******************
 	STATE PATROL
-*/
+*******************/
 void kamillelonek_fsm::PatrolState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
@@ -92,14 +93,21 @@ void kamillelonek_fsm::PatrolState::onUpdate(float dt)
 
 }
 
-/*
+/******************
 	STATE SICK
-*/
+*******************/
 void kamillelonek_fsm::SickState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
 	ActorAI* actor = getAI();
-    actor -> lookAt(actor -> getPowerLakePosition());
+	if(actor -> isMedkitAvailable())
+	{
+		actor -> lookAt(getAI() -> getMedkitPosition());
+	}
+	else
+	{
+		actor -> lookAt(actor -> getPowerLakePosition());
+	}
     actor -> setSpeed(10.f);
 }
 
@@ -109,9 +117,9 @@ void kamillelonek_fsm::SickState::onUpdate(float dt)
 	if(getAI() -> isInPowerLake()) getAI() -> setSpeed(0.f);
 }
 
-/*
+/******************
 	STATE ATTACK
-*/
+*******************/
 void kamillelonek_fsm::AttackState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
@@ -122,14 +130,24 @@ void kamillelonek_fsm::AttackState::onEnter(State* prev_state)
 void kamillelonek_fsm::AttackState::onUpdate(float dt)
 {
     __super::onUpdate(dt);
+	
+	mkVec3 enemyPosition = m_target -> getSimPos();
+	getAI() -> lookAt(enemyPosition);
+	getAI() -> setSpeed(10.f);
 
-	const float time_to_change_state = 1000;
+	const float time_to_change_state = 2000;
     const float cur_time = g_game -> getTimeMs();
     if (cur_time - m_stateStartTime > time_to_change_state)
     {
-		Character* target = getAI() -> findClosestEnemyInSight();
-		getAI() -> runAnimation("Attack3", 2000.f);
-		getAI() -> hitMelee();
-		getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::AttackState(getController(), target));
+		float distance = (getAI() -> getSimPos()).distance(enemyPosition);
+		if(distance <= getAI() -> getMeleeRange())
+		{
+			getAI() -> runAnimation("Attack3", 2000.f);
+			getAI() -> hitMelee();
+		}
+		else if(distance <= getAI() -> getShootingRange())
+		{
+			getAI() -> hitFireball(enemyPosition);
+		}
 	}
 }

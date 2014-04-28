@@ -846,7 +846,7 @@ void Character::lookAt( const mkVec3& target_pos )
 
 bool Character::isDead() const
 {
-    return false;
+    return getHealth() <= 0.f;
 }
 
 Level* Character::getLevel() const
