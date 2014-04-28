@@ -5,37 +5,36 @@ class KamilLelonekFSMActorController : public StateMachineActorController
 {
 public:
     explicit KamilLelonekFSMActorController(ActorAI* ai);
-
-    virtual void onCreate();
-    virtual void onDebugDraw();
+	virtual void onCreate();
 };
 
-namespace fsm
+namespace kamillelonek_fsm
 {
     class BaseState : public sm::State
     {
     public:
         explicit BaseState(KamilLelonekFSMActorController* controller);
+		KamilLelonekFSMActorController* getController() const;
 
-        KamilLelonekFSMActorController* getController() const;
+        void onUpdate(float dt);
+        void onEnter(State* prev_state);
+
+		bool shouldBeHealed();
+		bool enemyInRange();
+
+    private:
+        float m_stateStartTime;
     };
 
-    class IdleState : public BaseState
+    class PatrolState : public BaseState
     {
     public:
-        IdleState(KamilLelonekFSMActorController* controller);
+        PatrolState(KamilLelonekFSMActorController* controller);
 
         void onUpdate(float dt);
         void onEnter(State* prev_state);
 
         virtual void onTakeDamage();
-
-        virtual void onDebugDraw();
-
-        virtual void onLeave( State* next_state );
-
-    private:
-        float m_stateStartTime;
     };
 
     class AttackState : public BaseState
@@ -46,10 +45,19 @@ namespace fsm
         void onUpdate(float dt);
         void onEnter(State* prev_state);
 
-        virtual void onLeave( State* next_state );
-
     private:
         Character* m_target;
-        float m_stateStartTime;
     };
+
+	class SickState : public BaseState
+	{
+	public:
+        SickState(KamilLelonekFSMActorController* controller);
+		
+        void onUpdate(float dt);
+        void onEnter(State* prev_state);
+
+	private:
+        mkVec3 m_direction;
+	};
 }

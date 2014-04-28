@@ -4,93 +4,140 @@
 #include "contrib/DebugDrawer.h"
 #include "Level.h"
 
+/*
+	CONTROLLER
+*/
 KamilLelonekFSMActorController::KamilLelonekFSMActorController( ActorAI* ai ) : StateMachineActorController(ai) {}
 
 void KamilLelonekFSMActorController::onCreate()
 {
-    getAI() -> lookAt(mkVec3::ZERO);							// define looking vector for actor
-    scheduleTransitionInNextFrame(new fsm::IdleState(this));	// prepare idle state as a next state
-    updateStateTransition();									// transform into idle state
+    scheduleTransitionInNextFrame(new kamillelonek_fsm::PatrolState(this));
+    updateStateTransition();
 }
 
-void KamilLelonekFSMActorController::onDebugDraw()
-{
-    __super::onDebugDraw();
-}
+/*
+	STATES
+*/
+kamillelonek_fsm::BaseState::BaseState( KamilLelonekFSMActorController* controller ) : sm::State(controller), m_stateStartTime(-1.f) {}
 
-fsm::BaseState::BaseState( KamilLelonekFSMActorController* controller ) : sm::State(controller) {}
-fsm::IdleState::IdleState( KamilLelonekFSMActorController* controller ) : fsm::BaseState(controller), m_stateStartTime(-1.f) {}
-fsm::AttackState::AttackState( KamilLelonekFSMActorController* controller, Character* target ) : fsm::BaseState(controller), m_target(target), m_stateStartTime(-1.f) {}
+kamillelonek_fsm::PatrolState::PatrolState( KamilLelonekFSMActorController* controller ) : kamillelonek_fsm::BaseState(controller) {}
+kamillelonek_fsm::AttackState::AttackState( KamilLelonekFSMActorController* controller, Character* target ) : kamillelonek_fsm::BaseState(controller), m_target(target) {}
+kamillelonek_fsm::SickState::SickState( KamilLelonekFSMActorController * controller) : kamillelonek_fsm::BaseState(controller) {}
 
-KamilLelonekFSMActorController* fsm::BaseState::getController() const
+/*
+	STATE BASE
+*/
+KamilLelonekFSMActorController* kamillelonek_fsm::BaseState::getController() const
 {
     return static_cast<KamilLelonekFSMActorController*>(sm::State::getController());
 }
 
-void fsm::IdleState::onUpdate(float dt)
+void kamillelonek_fsm::BaseState::onEnter(State* prev_state)
+{
+	m_stateStartTime = g_game -> getTimeMs();
+}
+
+void kamillelonek_fsm::BaseState::onUpdate(float dt)
 {
     __super::onUpdate(dt);
-
-    Character* target = getAI()->findClosestEnemyInSight();
-    if(target){
-        getController()->scheduleTransitionInNextFrame(new fsm::AttackState(getController(),target));
-    }
 
     const float time_to_change_state = 2000;
-    const float cur_time = g_game->getTimeMs();
-    if (cur_time - m_stateStartTime > time_to_change_state)
-    {
-        fsm::IdleState* next_state = new fsm::IdleState(getController());
-        getController()->scheduleTransitionInNextFrame(next_state);
-    }
+    const float cur_time = g_game -> getTimeMs();
+    if (cur_time - m_stateStartTime < time_to_change_state) return;
+
+	if(shouldBeHealed())
+	{
+		getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::SickState(getController()));
+	}
+	else if(enemyInRange())
+	{
+		
+	}
+	else
+	{
+		getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::PatrolState(getController()));
+	}
 }
 
-void fsm::IdleState::onEnter(State* prev_state)
+bool kamillelonek_fsm::BaseState::shouldBeHealed()
+{
+
+	return (getAI() -> getHealth()) < (getAI() -> getMaxHealth()) / 2;
+}
+
+bool kamillelonek_fsm::BaseState::enemyInRange()
+{
+	Character* target = getAI()->findClosestEnemyInSight();
+	if(target)
+		throw std::exception();
+	return false;
+}
+
+/*
+	STATE PATROL
+*/
+void kamillelonek_fsm::PatrolState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
-    m_stateStartTime = g_game->getTimeMs();
-    getAI()->setSpeed(0.f);
+
+    getAI() -> lookAt(getRandomHorizontalDir());
+    getAI() -> setSpeed(0.5f);
 }
 
-void fsm::IdleState::onTakeDamage()
-{
-    getAI()->jump();
-}
-
-void fsm::IdleState::onDebugDraw() {}
-
-void fsm::IdleState::onLeave( State* next_state )
-{
-    getAI()->runAnimation("Backflip",800);
-}
-
-void fsm::AttackState::onUpdate(float dt)
+void kamillelonek_fsm::PatrolState::onUpdate(float dt)
 {
     __super::onUpdate(dt);
 
-    Character* target = getAI()->findClosestEnemyInSight();
-    if(!target){
-        getController()->scheduleTransitionInNextFrame(new fsm::IdleState(getController()));
-    }
-
-    const float time_to_change_state = 1200;
-    const float cur_time = g_game->getTimeMs();
-    if (cur_time - m_stateStartTime > time_to_change_state)
-    {
-        getAI()->runAnimation("Attack3",time_to_change_state);
-        fsm::AttackState* next_state = new fsm::AttackState(getController(),target);
-        getController()->scheduleTransitionInNextFrame(next_state);
+    Character* target = getAI() -> findClosestEnemyInSight();
+    if(target)
+	{
+        getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::AttackState(getController(), target));
     }
 }
 
-void fsm::AttackState::onEnter(State* prev_state)
+void kamillelonek_fsm::PatrolState::onTakeDamage()
+{
+    getAI() -> runAnimation("Backflip", 800);
+}
+
+/*
+	STATE SICK
+*/
+void kamillelonek_fsm::SickState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
-    m_stateStartTime = g_game->getTimeMs();
-    getAI()->setSpeed(0.f);
+	ActorAI* actor = getAI();
+    actor -> lookAt(actor -> getPowerLakePosition());
+    actor -> setSpeed(1.f);
 }
 
-void fsm::AttackState::onLeave( State* next_state )
+void kamillelonek_fsm::SickState::onUpdate(float dt)
 {
-    getAI()->hitMelee();
+    __super::onUpdate(dt);
+	if(getAI() -> isInPowerLake()) getAI() -> setSpeed(0.f);
+}
+
+/*
+	STATE ATTACK
+*/
+void kamillelonek_fsm::AttackState::onEnter(State* prev_state)
+{
+    __super::onEnter(prev_state);
+    getAI() -> setSpeed(0.f);
+}
+
+void kamillelonek_fsm::AttackState::onUpdate(float dt)
+{
+    __super::onUpdate(dt);
+
+    Character* target = getAI() -> findClosestEnemyInSight();
+    if(!target)
+	{
+        getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::PatrolState(getController()));
+    }
+
+    //getAI() -> runAnimation("Attack3", 2000.f);
+	getAI() -> hitMelee();
+    kamillelonek_fsm::AttackState* next_state = new kamillelonek_fsm::AttackState(getController(), target);
+    getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::AttackState(getController(), target));
 }

@@ -30,23 +30,23 @@
     "m_ambientLight" : { 0.5, 0.5, 0.5 }
   },
 
-//COORDINATOR  
+  //COORDINATOR  
   "GameObject" :
   {
     "ScriptName" : "tournament_arena/coordinator.lua",
     "m_radius"   : "32.0"
   },
 
-// POWER LAKE
+  // POWER LAKE
   "CylinderVolumeTrigger" :
   {
     "Preset"     : "power_lake_r8",
     "ScriptName" : "tournament_arena/power_lake.lua",
     "Name"       : "cvt_power_lake_1",
-    "m_worldTransform.position" : { 30.0, 0.0, 0.0 },
+    "m_worldTransform.position" : { 25.0, 0.0, 0.0 },
   },
 
-// HEALING BADGE  
+  // HEALING BADGE  
   "CylinderVolumeTrigger" :
   {
     "Preset"     : "healing_bandage",
@@ -55,7 +55,7 @@
     "m_worldTransform.position" : { -22.0, 0.0, 0.0 },
   },
 
-// DOUBLE DAMAGE  
+  // DOUBLE DAMAGE  
   "CylinderVolumeTrigger" :
   {
     "Preset"     : "double_damage",
@@ -64,26 +64,26 @@
     "m_worldTransform.position" : { 0.0, 0.0, 0.0 }
   },
 
-// BARRELS
-"ExplodingObject" :
+  // BARRELS
+  "ExplodingObject" :
    {
     "Preset" : "barrel_e_r8",
     "Name"   : "eo_b1",
     "m_worldTransform.position" : { -3.0, 0.625, 3.0 }
    },
-"ExplodingObject" :
+  "ExplodingObject" :
    {
     "Preset" : "barrel_e_r8",
     "Name"   : "eo_b2",
     "m_worldTransform.position" : { -3.0, 0.625, -3.0 }
    },
-"ExplodingObject" :
+  "ExplodingObject" :
    {
     "Preset" : "barrel_e_r8",
     "Name"   : "eo_b3",
     "m_worldTransform.position" : { 3.0, 0.625, 3.0 }
    },
-"ExplodingObject" :
+  "ExplodingObject" :
    {
     "Preset" : "barrel_e_r8",
     "Name"   : "eo_b4",
