@@ -21,14 +21,6 @@
         "Preset" : "Default",
         "m_ambientLight" : { 0.5, 0.5, 0.5 }
     },
-    
-    "AISpawner" :
-    {
-        "m_spawnOrigin" : { -48.0, 34.0, -48.0 },
-        "m_spawnRadius" : 1.0,
-        "m_aiNum" : 1,
-        "m_presetName" : "AISandboxBoss"
-    },
 
     "AISpawner" :
     {
