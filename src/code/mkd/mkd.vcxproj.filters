@@ -276,6 +276,9 @@
     <ClCompile Include="KamilLelonekFSMActorController.cpp">
       <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClCompile>
+    <ClCompile Include="KamilLelonekBTActorController.cpp">
+      <Filter>Game\ActorControllers\BTControllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="contrib\DebugDrawer.h">
@@ -502,6 +505,9 @@
     </ClInclude>
     <ClInclude Include="KamilLelonekFSMActorController.h">
       <Filter>Game\ActorControllers\FSMControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="KamilLelonekBTActorController.h">
+      <Filter>Game\ActorControllers\BTControllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

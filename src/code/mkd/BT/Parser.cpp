@@ -260,6 +260,8 @@ namespace BT {
                 result = new BT::EXPERIMENTS::GotoMine(m_AI);
             } else if(std::strcmp(xmlNode.attribute("action").value(),"Idle") == 0){
                 result = new BT::EXPERIMENTS::Idle(m_AI);
+            } else if(std::strcmp(xmlNode.attribute("action").value(),"Heal") == 0){
+                result = new BT::KL::Heal(m_AI);
             } else {
                 throw "XMLError";
             }

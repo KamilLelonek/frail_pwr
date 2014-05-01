@@ -33,6 +33,7 @@ KamilLelonekFSMActorController* kamillelonek_fsm::BaseState::getController() con
 
 void kamillelonek_fsm::BaseState::onEnter(State* prev_state)
 {
+    __super::onEnter(prev_state);
 	m_stateStartTime = g_game -> getTimeMs();
 }
 

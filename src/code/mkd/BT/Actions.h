@@ -256,4 +256,19 @@ namespace BT {
             virtual void onTerminate(Status status);
         };
     }
+
+	namespace KL {
+		class Heal : public Action {
+        public:
+            explicit Heal(ActorAI* ai);
+            virtual ~Heal();
+
+            virtual Status update();
+            virtual void onInitialize(BlackBoard* bb);
+            virtual void onTerminate(Status status);
+
+		private:
+			float m_health;
+        };
+	}
 }

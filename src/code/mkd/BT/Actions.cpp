@@ -1035,4 +1035,35 @@ namespace BT {
         }
 
     }
+
+	namespace KL {
+		Heal::Heal(ActorAI* ai) : Action(ai)
+		{
+			m_health = ai -> getHealth();
+		}
+
+        Heal::~Heal() {}
+        void Heal::onTerminate( Status status ) {}
+        void Heal::onInitialize( BlackBoard* bb )
+        {
+            __super::onInitialize(bb);
+        }
+
+        Status Heal::update()
+        {
+            if(!isValid()) return BH_FAILURE;
+            bool isValid = true;
+
+            mkVec3 healingPlace = m_bb -> getStateVec3("HealingPlace", isValid);
+
+            if(!isValid) return BH_FAILURE;
+
+            if(m_AI -> getHealth() > m_health) return BH_SUCCESS;
+
+            m_AI -> lookAt(healingPlace);
+            m_AI -> setSpeed(10.f);
+
+			return BH_RUNNING;
+        }
+	}
 }

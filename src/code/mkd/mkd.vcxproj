@@ -209,6 +209,7 @@
     <ClCompile Include="htn\Parser.cpp" />
     <ClCompile Include="htn\Planner.cpp" />
     <ClCompile Include="htn\Task.cpp" />
+    <ClCompile Include="KamilLelonekBTActorController.cpp" />
     <ClCompile Include="KamilLelonekFSMActorController.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
     <ClCompile Include="Filesystem.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="htn\Parser.h" />
     <ClInclude Include="htn\Planner.h" />
     <ClInclude Include="htn\Task.h" />
+    <ClInclude Include="KamilLelonekBTActorController.h" />
     <ClInclude Include="KamilLelonekFSMActorController.h" />
     <ClInclude Include="LevelObjectsMgr.h" />
     <ClInclude Include="mkAssert.h" />

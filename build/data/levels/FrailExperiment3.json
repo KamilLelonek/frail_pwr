@@ -30,14 +30,6 @@
         "m_presetName" : "NinjaExperimentBoss"
     },
     
-    "AISpawner" :
-    {
-        "m_spawnOrigin" : { 0.0, 2.0, 0.0 },
-        "m_spawnRadius" : 4.0,
-        "m_aiNum" : 1,
-        "m_presetName" : "NinjaExperiment3"
-    }, 
-    
     "ModelObject" :
     {
         "m_meshName" : "2nomansland-deco.mesh",
