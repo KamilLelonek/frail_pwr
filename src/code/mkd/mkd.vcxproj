@@ -196,7 +196,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CylinderVolumeTrigger.cpp" />
-    <ClCompile Include="HTNActorController.cpp" />
     <ClCompile Include="htn\Goal.cpp" />
     <ClCompile Include="htn\Method.cpp" />
     <ClCompile Include="htn\Operator.cpp" />
@@ -273,7 +272,6 @@
     <ClInclude Include="CylinderVolumeTrigger.h" />
     <ClInclude Include="Filesystem.h" />
     <ClInclude Include="FixedString.h" />
-    <ClInclude Include="HTNActorController.h" />
     <ClInclude Include="htn\Goal.h" />
     <ClInclude Include="htn\Method.h" />
     <ClInclude Include="htn\Operator.h" />

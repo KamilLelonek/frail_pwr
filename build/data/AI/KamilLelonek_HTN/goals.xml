@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <tasks>
 	
+	<task name="goalHeal">
+		<postconditions>
+			<post>Equal IsActorHealthy True</post>
+		</postconditions>
+	</task>
+	
 	<task name="goalKillEnemy" main="1">
 		<postconditions>
 			<post>Equal IsEnemyVisible True</post>
@@ -17,12 +23,6 @@
 	<task name="goalAttack">
 		<postconditions>
 			<post>Equal IsEnemyDead True</post>
-		</postconditions>
-	</task>
-	
-	<task name="goalHeal">
-		<postconditions>
-			<post>MoreEqual ActorHealth HealthAMLimit</post>
 		</postconditions>
 	</task>
 

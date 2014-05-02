@@ -219,9 +219,6 @@
     <ClCompile Include="BT\Condition.cpp">
       <Filter>Game\ActorControllers\BTControllers\BT</Filter>
     </ClCompile>
-    <ClCompile Include="HTNActorController.cpp">
-      <Filter>Game\ActorControllers\HTNControllers</Filter>
-    </ClCompile>
     <ClCompile Include="CylinderVolumeTrigger.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -418,9 +415,6 @@
     </ClInclude>
     <ClInclude Include="BT\Condition.h">
       <Filter>Game\ActorControllers\BTControllers\BT</Filter>
-    </ClInclude>
-    <ClInclude Include="HTNActorController.h">
-      <Filter>Game\ActorControllers\HTNControllers</Filter>
     </ClInclude>
     <ClInclude Include="CylinderVolumeTrigger.h">
       <Filter>Game</Filter>

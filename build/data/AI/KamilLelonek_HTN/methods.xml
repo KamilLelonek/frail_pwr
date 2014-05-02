@@ -1,12 +1,24 @@
 <?xml version="1.0"?>
 <methods>
 
+	<method name="methodHeal" usefulness="5.0">
+		<goals>
+			<goal>goalHeal</goal>
+		</goals>
+		<preconditions>
+			<pre>Equal IsActorHealthy False</pre>
+		</preconditions>
+		<subtasks>
+      <sub>opHeal</sub>
+		</subtasks>
+	</method>
+
 	<method name="methodKillEnemy" usefulness="1.0" runAll="0">
 		<goals>
 			<goal>goalKillEnemy</goal>
 		</goals>
 		<subtasks>
-			<sub>goalPatrol</sub>
+      <sub>goalPatrol</sub>
 			<sub>goalAttack</sub>
 		</subtasks>
 	</method>
@@ -46,6 +58,7 @@
 			<pre>Equal IsEnemyVisible False</pre>
 		</preconditions>
 		<subtasks>
+      <sub>opHeal</sub>
 			<sub>opPatrol</sub>
 		</subtasks>
 	</method>
@@ -121,18 +134,6 @@
 		</preconditions>
 		<subtasks>
 			<sub>opReduceDistance</sub>
-		</subtasks>
-	</method>
-
-	<method name="methodHeal" usefulness="2.0">
-		<goals>
-			<goal>goalHeal</goal>
-		</goals>
-		<preconditions>
-			<pre>Less ActorHealth HealthAMLimit</pre>
-		</preconditions>
-		<subtasks>
-			<sub>opHeal</sub>
 		</subtasks>
 	</method>
 

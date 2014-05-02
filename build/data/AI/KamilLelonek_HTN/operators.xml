@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <tasks>
 
+	<task name="opHeal" duration="5000" interruptible="0">
+		<outcome>
+			<out>IsActorHealthy True</out>
+		</outcome>
+	</task>
+
 	<task name="opPatrol" duration="3000" interruptible="1">
 		<outcome>
 			<out>IsEnemyVisible True</out>
@@ -8,6 +14,7 @@
 		<interruptions>
 			<int>opRevealAttacker</int>
 			<int>opExploreSpot</int>
+			<int>opHeal</int>
 		</interruptions>
 	</task>
 
@@ -16,27 +23,39 @@
 			<out>IsEnemyVisible True</out>
 			<out>IsSpotReached True</out>
 		</outcome>
+		<interruptions>
+			<int>opHeal</int>
+		</interruptions>
 	</task>
 	
-	<task name="opAttackMelee" duration="50" interruptible="0">
+	<task name="opAttackMelee" duration="50" interruptible="1">
 		<outcome>
 			<out>IsEnemyDead True</out>
 		</outcome>
+		<interruptions>
+			<int>opHeal</int>
+		</interruptions>
 	</task>
 	
-	<task name="opRotateToEnemy" duration="500" interruptible="0">
+	<task name="opRotateToEnemy" duration="500" interruptible="1">
 		<outcome>
 			<out>EnemyDgrDiff Zero</out>
 		</outcome>
+		<interruptions>
+			<int>opHeal</int>
+		</interruptions>
 	</task>
 	
-	<task name="opAttackFireball" duration="50" interruptible="0">
+	<task name="opAttackFireball" duration="50" interruptible="1">
 		<outcome>
 			<out>IsEnemyDead True</out>
 		</outcome>
+		<interruptions>
+			<int>opHeal</int>
+		</interruptions>
 	</task>
 	
-	<task name="opAngerMode" duration="50" interruptible="0">
+	<task name="opAngerMode" duration="50" interruptible="1">
 		<outcome>
 			<out>IsEnemyDead True</out>
 		</outcome>
@@ -48,6 +67,7 @@
 		</outcome>
 		<interruptions>
 			<int>animAttackMelee</int>
+			<int>opHeal</int>
 		</interruptions>
 	</task>
 	
@@ -55,6 +75,9 @@
 		<outcome>
 			<out>IsEnemyVisible True</out>
 		</outcome>
+		<interruptions>
+			<int>opHeal</int>
+		</interruptions>
 	</task>
 	
 	<task name="animAngerMode"		  duration="1200" interruptible="0"/>
@@ -63,13 +86,8 @@
 	<task name="animAttackMelee" duration="1200" interruptible="1">
 		<interruptions>
 			<int>opRotateToEnemy</int>
+			<int>opHeal</int>
 		</interruptions>
-	</task>
-
-	<task name="opHeal" duration="5000" interruptible="0">
-		<outcome>
-			<out>ActorHealth HealthAMLimit</out>
-		</outcome>
 	</task>
 
 </tasks>
