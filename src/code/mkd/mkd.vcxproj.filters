@@ -49,9 +49,6 @@
     <Filter Include="Game\ActorControllers\FSMControllers">
       <UniqueIdentifier>{b4fce682-20cf-408d-885a-fa6f63152957}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\ActorControllers\SwarmControllers">
-      <UniqueIdentifier>{eeecc544-0674-4a7c-baf0-2b8bcc8c4567}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\ActorControllers\HTNControllers\HTN">
       <UniqueIdentifier>{4a2ed27c-8564-4a89-b992-d19aa508f5ac}</UniqueIdentifier>
     </Filter>
@@ -60,9 +57,6 @@
     </Filter>
     <Filter Include="Game\ActorControllers\Other">
       <UniqueIdentifier>{fa2c5acd-2dc6-4879-bf34-6a51cdcec81f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\ActorControllers\ExperimentalControllers">
-      <UniqueIdentifier>{e0d464c6-b5cf-4ad0-97c1-4540b4ca653b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -225,41 +219,11 @@
     <ClCompile Include="BT\Condition.cpp">
       <Filter>Game\ActorControllers\BTControllers\BT</Filter>
     </ClCompile>
-    <ClCompile Include="Experiment1BTActorController.cpp">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Experiment1HTNActorController.cpp">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Experiment3BTActorController.cpp">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Experiment3HTNActorController.cpp">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClCompile>
     <ClCompile Include="HTNActorController.cpp">
       <Filter>Game\ActorControllers\HTNControllers</Filter>
     </ClCompile>
-    <ClCompile Include="StateMachineActorController.cpp">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="BTActorController.cpp">
-      <Filter>Game\ActorControllers\BTControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="BoidActorController.cpp">
-      <Filter>Game\ActorControllers\SwarmControllers</Filter>
-    </ClCompile>
     <ClCompile Include="CylinderVolumeTrigger.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleHTNActorController.cpp">
-      <Filter>Game\ActorControllers\HTNControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleBTActorController.cpp">
-      <Filter>Game\ActorControllers\BTControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="CtfSMActorController.cpp">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClCompile>
     <ClCompile Include="TestActorController.cpp">
       <Filter>Game\ActorControllers\Other</Filter>
@@ -267,17 +231,17 @@
     <ClCompile Include="UserActorController.cpp">
       <Filter>Game\ActorControllers\Other</Filter>
     </ClCompile>
-    <ClCompile Include="BossFSMActorController.cpp">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleFSMActorController.cpp">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
-    </ClCompile>
     <ClCompile Include="KamilLelonekFSMActorController.cpp">
       <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClCompile>
     <ClCompile Include="KamilLelonekBTActorController.cpp">
       <Filter>Game\ActorControllers\BTControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="KamilLelonekHTNActorController.cpp">
+      <Filter>Game\ActorControllers\HTNControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachineActorController.cpp">
+      <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,41 +419,11 @@
     <ClInclude Include="BT\Condition.h">
       <Filter>Game\ActorControllers\BTControllers\BT</Filter>
     </ClInclude>
-    <ClInclude Include="Experiment3HTNActorController.h">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Experiment1BTActorController.h">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Experiment1HTNActorController.h">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Experiment3BTActorController.h">
-      <Filter>Game\ActorControllers\ExperimentalControllers</Filter>
-    </ClInclude>
     <ClInclude Include="HTNActorController.h">
       <Filter>Game\ActorControllers\HTNControllers</Filter>
     </ClInclude>
-    <ClInclude Include="StateMachineActorController.h">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="BTActorController.h">
-      <Filter>Game\ActorControllers\BTControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="BoidActorController.h">
-      <Filter>Game\ActorControllers\SwarmControllers</Filter>
-    </ClInclude>
     <ClInclude Include="CylinderVolumeTrigger.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleHTNActorController.h">
-      <Filter>Game\ActorControllers\HTNControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleBTActorController.h">
-      <Filter>Game\ActorControllers\BTControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="CtfSMActorController.h">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClInclude>
     <ClInclude Include="UserActorController.h">
       <Filter>Game\ActorControllers\Other</Filter>
@@ -497,17 +431,17 @@
     <ClInclude Include="TestActorController.h">
       <Filter>Game\ActorControllers\Other</Filter>
     </ClInclude>
-    <ClInclude Include="BossFSMActorController.h">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleFSMActorController.h">
-      <Filter>Game\ActorControllers\FSMControllers</Filter>
-    </ClInclude>
     <ClInclude Include="KamilLelonekFSMActorController.h">
       <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClInclude>
     <ClInclude Include="KamilLelonekBTActorController.h">
       <Filter>Game\ActorControllers\BTControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="KamilLelonekHTNActorController.h">
+      <Filter>Game\ActorControllers\HTNControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachineActorController.h">
+      <Filter>Game\ActorControllers\FSMControllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

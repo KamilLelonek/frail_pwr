@@ -1,26 +1,26 @@
 #include "pch.h"
-#include "HTNActorController.h"
+#include "KamilLelonekHTNActorController.h"
 #include "contrib/DebugDrawer.h"
 
-HTNActorController::HTNActorController( ActorAI* ai ) : IActorController(ai)
+KamilLelonekHTNActorController::KamilLelonekHTNActorController( ActorAI* ai ) : IActorController(ai)
 {
     m_planner = new HTN::Planner();
     m_planner->init(getAI()->getHtnMethodsPath(),getAI()->getHtnOperatorsPath(),getAI()->getHtnGoalsPath());
 
     //actions////////////////////////////////////////////////////////////////////////
-    m_actions["opPatrol"] = &HTNActorController::actionPatrol;
-    m_actions["opAttackMelee"] = &HTNActorController::actionAttackMelee;
-    m_actions["opRotateToEnemy"] = &HTNActorController::actionRotateToEnemy;
-    m_actions["opAttackFireball"] = &HTNActorController::actionAttackFireball;
-    m_actions["opReduceDistance"] = &HTNActorController::actionReduceDistance;
-    m_actions["opRevealAttacker"] = &HTNActorController::actionRevealAttacker;
-    m_actions["opAngerMode"] = &HTNActorController::actionAngerMode;
-    m_actions["opExploreSpot"] = &HTNActorController::actionExploreSpot;
-    m_actions["opKeepDistance"] = &HTNActorController::actionKeepDistance;
+    m_actions["opPatrol"] = &KamilLelonekHTNActorController::actionPatrol;
+    m_actions["opAttackMelee"] = &KamilLelonekHTNActorController::actionAttackMelee;
+    m_actions["opRotateToEnemy"] = &KamilLelonekHTNActorController::actionRotateToEnemy;
+    m_actions["opAttackFireball"] = &KamilLelonekHTNActorController::actionAttackFireball;
+    m_actions["opReduceDistance"] = &KamilLelonekHTNActorController::actionReduceDistance;
+    m_actions["opRevealAttacker"] = &KamilLelonekHTNActorController::actionRevealAttacker;
+    m_actions["opAngerMode"] = &KamilLelonekHTNActorController::actionAngerMode;
+    m_actions["opExploreSpot"] = &KamilLelonekHTNActorController::actionExploreSpot;
+    m_actions["opKeepDistance"] = &KamilLelonekHTNActorController::actionKeepDistance;
     //////////////////////////////////////////////////////////////////////////
-    m_actions["animAngerMode"] = &HTNActorController::animAngerMode;
-    m_actions["animAttackFireball"] = &HTNActorController::animAttackFireball;
-    m_actions["animAttackMelee"] = &HTNActorController::animAttackMelee;
+    m_actions["animAngerMode"] = &KamilLelonekHTNActorController::animAngerMode;
+    m_actions["animAttackFireball"] = &KamilLelonekHTNActorController::animAttackFireball;
+    m_actions["animAttackMelee"] = &KamilLelonekHTNActorController::animAttackMelee;
 
     m_isAttacked = false;
     m_enemyRunningAway = false;
@@ -32,13 +32,13 @@ HTNActorController::HTNActorController( ActorAI* ai ) : IActorController(ai)
     m_target = NULL;
 }
 
-HTNActorController::~HTNActorController(){
+KamilLelonekHTNActorController::~KamilLelonekHTNActorController(){
     delete m_planner;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void HTNActorController::onCreate(){
+void KamilLelonekHTNActorController::onCreate(){
     getAI()->lookAt(mkVec3::ZERO);
     //ai_specific////////////////////////////////////////////////////////////////////////
     m_planner->setStateFloat("rngMelee",getAI()->getMeleeRange());
@@ -60,12 +60,12 @@ void HTNActorController::onCreate(){
     Ogre::LogManager::getSingleton().logMessage("HTN controller created!");
 }
 
-void HTNActorController::onTakeDamage(const SDamageInfo& dmg_info){
+void KamilLelonekHTNActorController::onTakeDamage(const SDamageInfo& dmg_info){
     m_isAttacked = true;
     m_attackDir = mkVec3::ZERO-dmg_info.dir;
 }
 
-void HTNActorController::onUpdate(float dt){
+void KamilLelonekHTNActorController::onUpdate(float dt){
     updateWorldState(dt);
 
     std::vector<HTN::pTask> plan = m_planner->getPlan(getAI()->getHtnMethodsPath(),getAI()->getHtnOperatorsPath(),getAI()->getHtnGoalsPath());
@@ -88,20 +88,20 @@ void HTNActorController::onUpdate(float dt){
     }
 }
 
-void HTNActorController::onDebugDraw(){
+void KamilLelonekHTNActorController::onDebugDraw(){
     getAI()->drawSensesInfo();
     if(m_enemyLastPos != mkVec3::ZERO)
         DebugDrawer::getSingleton().drawCircle(m_enemyLastPos, 0.2f, 30, Ogre::ColourValue::Black, true);
 }
 
-void HTNActorController::onDie()
+void KamilLelonekHTNActorController::onDie()
 {
     m_angerMode = false;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void HTNActorController::updateWorldState(float dt){
+void KamilLelonekHTNActorController::updateWorldState(float dt){
     if(m_isAttacked)
         m_planner->setStateBool("IsEnemyAttack",true);
     else
@@ -159,13 +159,13 @@ void HTNActorController::updateWorldState(float dt){
     }
 }
 
-void HTNActorController::executeTask(HTN::pOperator nextTask){
+void KamilLelonekHTNActorController::executeTask(HTN::pOperator nextTask){
     ctrlrAction action = m_actions[nextTask->getName()];
     (this->*action)(nextTask->getDuration());
 }
 
 //----------actions----------
-bool HTNActorController::actionPatrol(float duration){
+bool KamilLelonekHTNActorController::actionPatrol(float duration){
     mkVec3 new_direction = getRandomHorizontalDir();
     RayCastResult ray_result = getAI()->raycast(new_direction, 1.0f, 5.f);
     while(ray_result.hit && ray_result.collision_type == RayCastResult::Environment){
@@ -180,7 +180,7 @@ bool HTNActorController::actionPatrol(float duration){
     return true;
 }
 
-bool HTNActorController::actionRotateToEnemy(float duration){
+bool KamilLelonekHTNActorController::actionRotateToEnemy(float duration){
     if(!m_target)
         return false;
 
@@ -193,7 +193,7 @@ bool HTNActorController::actionRotateToEnemy(float duration){
     return true;
 }
 
-bool HTNActorController::actionAttackMelee(float duration){
+bool KamilLelonekHTNActorController::actionAttackMelee(float duration){
     if(!m_target)
         return false;
 
@@ -203,7 +203,7 @@ bool HTNActorController::actionAttackMelee(float duration){
     return true;
 }
 
-bool HTNActorController::actionAttackFireball(float duration){
+bool KamilLelonekHTNActorController::actionAttackFireball(float duration){
     if(!m_target)
         return false;
 
@@ -213,7 +213,7 @@ bool HTNActorController::actionAttackFireball(float duration){
     return true;
 }
 
-bool HTNActorController::actionReduceDistance(float duration){
+bool KamilLelonekHTNActorController::actionReduceDistance(float duration){
     if(!m_target)
         return false;
     RayCastResult ray_result = getAI()->raycast(m_target->getSimPos(), 0.1f, 1.f);
@@ -228,7 +228,7 @@ bool HTNActorController::actionReduceDistance(float duration){
     return true;
 }
 
-bool HTNActorController::actionRevealAttacker(float duration){
+bool KamilLelonekHTNActorController::actionRevealAttacker(float duration){
     getAI()->setSpeed(0.3f);
     size_t steps = 40;
     m_isAttacked = false;
@@ -237,7 +237,7 @@ bool HTNActorController::actionRevealAttacker(float duration){
     return true;
 }
 
-bool HTNActorController::actionAngerMode(float duration){
+bool KamilLelonekHTNActorController::actionAngerMode(float duration){
     if(!m_target)
         return false;
 
@@ -246,7 +246,7 @@ bool HTNActorController::actionAngerMode(float duration){
     return true;
 }
 
-bool HTNActorController::actionExploreSpot(float duration)
+bool KamilLelonekHTNActorController::actionExploreSpot(float duration)
 {
     if(m_enemyLastPos == mkVec3::ZERO)
         return false;
@@ -259,7 +259,7 @@ bool HTNActorController::actionExploreSpot(float duration)
     return true;
 }
 
-bool HTNActorController::actionKeepDistance(float duration)
+bool KamilLelonekHTNActorController::actionKeepDistance(float duration)
 {
     if(!m_target)
         return false;
@@ -279,7 +279,7 @@ bool HTNActorController::actionKeepDistance(float duration)
     return false;
 }
 
-bool HTNActorController::animAngerMode( float duration )
+bool KamilLelonekHTNActorController::animAngerMode( float duration )
 {
     if(!m_target)
         return false;
@@ -290,7 +290,7 @@ bool HTNActorController::animAngerMode( float duration )
     return true;
 }
 
-bool HTNActorController::animAttackMelee( float duration )
+bool KamilLelonekHTNActorController::animAttackMelee( float duration )
 {
     if(!m_target)
         return false;
@@ -301,7 +301,7 @@ bool HTNActorController::animAttackMelee( float duration )
     return true;
 }
 
-bool HTNActorController::animAttackFireball( float duration )
+bool KamilLelonekHTNActorController::animAttackFireball( float duration )
 {
     if(!m_target)
         return false;

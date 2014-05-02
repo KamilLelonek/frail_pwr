@@ -444,7 +444,7 @@
   "Preset" :
   {
     "PresetName"                  : "KamilLelonekHTN",
-    "m_characterCtrlName"         : "HTN",
+    "m_characterCtrlName"         : "KamilLelonekHTN",
     "Extends"                     : "KamilLelonek",
 		"m_htnMethodsPath"            : "data\\AI\\KamilLelonek_HTN\\methods.xml",
 		"m_htnOperatorsPath"          : "data\\AI\\KamilLelonek_HTN\\operators.xml",

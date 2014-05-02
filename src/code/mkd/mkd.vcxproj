@@ -185,8 +185,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BossFSMActorController.cpp" />
-    <ClCompile Include="BTActorController.cpp" />
     <ClCompile Include="BT\Actions.cpp" />
     <ClCompile Include="BT\Behavior.cpp" />
     <ClCompile Include="BT\BlackBoard.cpp" />
@@ -198,10 +196,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CylinderVolumeTrigger.cpp" />
-    <ClCompile Include="Experiment1BTActorController.cpp" />
-    <ClCompile Include="Experiment1HTNActorController.cpp" />
-    <ClCompile Include="Experiment3BTActorController.cpp" />
-    <ClCompile Include="Experiment3HTNActorController.cpp" />
     <ClCompile Include="HTNActorController.cpp" />
     <ClCompile Include="htn\Goal.cpp" />
     <ClCompile Include="htn\Method.cpp" />
@@ -211,6 +205,7 @@
     <ClCompile Include="htn\Task.cpp" />
     <ClCompile Include="KamilLelonekBTActorController.cpp" />
     <ClCompile Include="KamilLelonekFSMActorController.cpp" />
+    <ClCompile Include="KamilLelonekHTNActorController.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
     <ClCompile Include="Filesystem.cpp" />
     <ClCompile Include="LevelObjectsMgr.cpp" />
@@ -220,9 +215,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Hybrid|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SampleBTActorController.cpp" />
-    <ClCompile Include="SampleFSMActorController.cpp" />
-    <ClCompile Include="SampleHTNActorController.cpp" />
+    <ClCompile Include="StateMachineActorController.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="rtti\FieldInfo.cpp" />
     <ClCompile Include="rtti\PresetMgr.cpp" />
@@ -251,9 +244,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Level.cpp" />
-    <ClCompile Include="BoidActorController.cpp" />
-    <ClCompile Include="CtfSMActorController.cpp" />
-    <ClCompile Include="StateMachineActorController.cpp" />
     <ClCompile Include="TestActorController.cpp" />
     <ClCompile Include="UserActorController.cpp" />
     <ClCompile Include="ActorControllerFactory.cpp" />
@@ -272,8 +262,6 @@
     <ClCompile Include="ctf\TeamFlag.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BossFSMActorController.h" />
-    <ClInclude Include="BTActorController.h" />
     <ClInclude Include="BT\Actions.h" />
     <ClInclude Include="BT\Behavior.h" />
     <ClInclude Include="BT\BlackBoard.h" />
@@ -283,10 +271,6 @@
     <ClInclude Include="BT\Parser.h" />
     <ClInclude Include="contrib\DebugDrawer.h" />
     <ClInclude Include="CylinderVolumeTrigger.h" />
-    <ClInclude Include="Experiment1BTActorController.h" />
-    <ClInclude Include="Experiment1HTNActorController.h" />
-    <ClInclude Include="Experiment3BTActorController.h" />
-    <ClInclude Include="Experiment3HTNActorController.h" />
     <ClInclude Include="Filesystem.h" />
     <ClInclude Include="FixedString.h" />
     <ClInclude Include="HTNActorController.h" />
@@ -298,16 +282,15 @@
     <ClInclude Include="htn\Task.h" />
     <ClInclude Include="KamilLelonekBTActorController.h" />
     <ClInclude Include="KamilLelonekFSMActorController.h" />
+    <ClInclude Include="KamilLelonekHTNActorController.h" />
     <ClInclude Include="LevelObjectsMgr.h" />
     <ClInclude Include="mkAssert.h" />
     <ClInclude Include="ObjectRef.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhysicsObjectUserData.h" />
     <ClInclude Include="Prefab.h" />
-    <ClInclude Include="SampleBTActorController.h" />
-    <ClInclude Include="SampleFSMActorController.h" />
-    <ClInclude Include="SampleHTNActorController.h" />
     <ClInclude Include="settings.h" />
+    <ClInclude Include="StateMachineActorController.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="rtti\FieldInfo.h" />
@@ -329,10 +312,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="BoidActorController.h" />
-    <ClInclude Include="CtfSMActorController.h" />
     <ClInclude Include="IActorController.h" />
-    <ClInclude Include="StateMachineActorController.h" />
     <ClInclude Include="TestActorController.h" />
     <ClInclude Include="UserActorController.h" />
     <ClInclude Include="ActorControllerFactory.h" />

@@ -1,19 +1,29 @@
 <?xml version="1.0"?>
 <tasks>
-	<task name="glKillEnemy" main="1">
+	
+	<task name="goalKillEnemy" main="1">
 		<postconditions>
 			<post>Equal IsEnemyVisible True</post>
 			<post>Equal IsEnemyDead True</post>
 		</postconditions>
 	</task>
-	<task name="glPatrol">
+	
+	<task name="goalPatrol">
 		<postconditions>
 			<post>Equal IsEnemyVisible True</post>
 		</postconditions>
 	</task>
-	<task name="glAttack">
+	
+	<task name="goalAttack">
 		<postconditions>
 			<post>Equal IsEnemyDead True</post>
 		</postconditions>
 	</task>
+	
+	<task name="goalHeal">
+		<postconditions>
+			<post>MoreEqual ActorHealth HealthAMLimit</post>
+		</postconditions>
+	</task>
+
 </tasks>

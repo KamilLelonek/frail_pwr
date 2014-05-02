@@ -1,24 +1,19 @@
 <?xml version="1.0"?>
-<aliases>
-	<!--<alias>floatExample 1000.0</alias>-->
-	<!--<alias>boolExample true</alias>-->
-	<!--<alias>sampleRange rngMelee</alias>-->
-	<alias>FBRange 10.0</alias>
-</aliases>
 <methods>
-	<method name="mthKillEnemy" usefulness="1.0" runAll="0">
+
+	<method name="methodKillEnemy" usefulness="1.0" runAll="0">
 		<goals>
-			<goal>glKillEnemy</goal>
+			<goal>goalKillEnemy</goal>
 		</goals>
-		<!--No preconditions since it is our root task-->
 		<subtasks>
-			<sub>glPatrol</sub>
-			<sub>glAttack</sub>
+			<sub>goalPatrol</sub>
+			<sub>goalAttack</sub>
 		</subtasks>
 	</method>
-	<method name="mthRevealAttacker" usefulness="2.0">
+
+	<method name="methodRevealAttacker" usefulness="2.0">
 		<goals>
-			<goal>glPatrol</goal>
+			<goal>goalPatrol</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible False</pre>
@@ -28,9 +23,10 @@
 			<sub>opRevealAttacker</sub>
 		</subtasks>
 	</method>
-	<method name="mthLastSeen" usefulness="1.5">
+
+	<method name="methodLastSeen" usefulness="1.5">
 		<goals>
-			<goal>glPatrol</goal>
+			<goal>goalPatrol</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible False</pre>
@@ -41,9 +37,10 @@
 			<sub>opExploreSpot</sub>
 		</subtasks>
 	</method>
-	<method name="mthPatrol" usefulness="1.0">
+
+	<method name="methodPatrol" usefulness="1.0">
 		<goals>
-			<goal>glPatrol</goal>
+			<goal>goalPatrol</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible False</pre>
@@ -52,9 +49,10 @@
 			<sub>opPatrol</sub>
 		</subtasks>
 	</method>
-	<method name="mthAngerMode" usefulness="4.0">
+
+	<method name="methodAngerMode" usefulness="4.0">
 		<goals>
-			<goal>glAttack</goal>
+			<goal>goalAttack</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible True</pre>
@@ -67,9 +65,10 @@
 			<sub>opAngerMode</sub>
 		</subtasks>
 	</method>
-	<method name="mthAttackFireball" usefulness="3.0">
+
+	<method name="methodAttackFireball" usefulness="3.0">
 		<goals>
-			<goal>glAttack</goal>
+			<goal>goalAttack</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible True</pre>
@@ -82,9 +81,10 @@
 			<sub>opAttackFireball</sub>
 		</subtasks>
 	</method>
-	<method name="mthAttackMelee" usefulness="2.0">
+
+	<method name="methodAttackMelee" usefulness="2.0">
 		<goals>
-			<goal>glAttack</goal>
+			<goal>goalAttack</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible True</pre>
@@ -96,9 +96,10 @@
 			<sub>opAttackMelee</sub>
 		</subtasks>
 	</method>
-	<method name="mthRotate" usefulness="1.5">
+
+	<method name="methodRotate" usefulness="1.5">
 		<goals>
-			<goal>glAttack</goal>
+			<goal>goalAttack</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible True</pre>
@@ -109,9 +110,10 @@
 			<sub>opRotateToEnemy</sub>
 		</subtasks>
 	</method>
-	<method name="mthReduceDistance" usefulness="1.0">
+
+	<method name="methodReduceDistance" usefulness="1.0">
 		<goals>
-			<goal>glAttack</goal>
+			<goal>goalAttack</goal>
 		</goals>
 		<preconditions>
 			<pre>Equal IsEnemyVisible True</pre>
@@ -121,4 +123,17 @@
 			<sub>opReduceDistance</sub>
 		</subtasks>
 	</method>
+
+	<method name="methodHeal" usefulness="2.0">
+		<goals>
+			<goal>goalHeal</goal>
+		</goals>
+		<preconditions>
+			<pre>Less ActorHealth HealthAMLimit</pre>
+		</preconditions>
+		<subtasks>
+			<sub>opHeal</sub>
+		</subtasks>
+	</method>
+
 </methods>

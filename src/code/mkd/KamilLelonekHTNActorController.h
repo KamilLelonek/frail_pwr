@@ -4,13 +4,13 @@
 #include "utils.h"
 #include "HTN\Planner.h"
 
-class HTNActorController : public IActorController
+class KamilLelonekHTNActorController : public IActorController
 {
 public:
-    typedef bool (HTNActorController::*ctrlrAction)(float);
+    typedef bool (KamilLelonekHTNActorController::*ctrlrAction)(float);
 
-	explicit HTNActorController(ActorAI* ai);
-	~HTNActorController();
+	explicit KamilLelonekHTNActorController(ActorAI* ai);
+	~KamilLelonekHTNActorController();
 
 	virtual void onCreate();
 	virtual void onTakeDamage(const SDamageInfo& dmg_info);
