@@ -35,6 +35,7 @@ void kamillelonek_fsm::BaseState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
 	m_stateStartTime = g_game -> getTimeMs();
+	isUnderAttack = false;
 }
 
 void kamillelonek_fsm::BaseState::onUpdate(float dt)
@@ -46,7 +47,7 @@ void kamillelonek_fsm::BaseState::onUpdate(float dt)
     if (cur_time - m_stateStartTime < time_to_change_state) return;
 
 	Character* target;
-	if(shouldBeHealed())
+	if(shouldBeHealed() && !isUnderAttack)
 	{
 		getController() -> scheduleTransitionInNextFrame(new kamillelonek_fsm::SickState(getController()));
 	}
@@ -73,7 +74,6 @@ Character* kamillelonek_fsm::BaseState::enemyInRange()
 
 void kamillelonek_fsm::BaseState::onTakeDamage()
 {
-    getAI() -> runAnimation("Backflip", 800);
 	getAI() -> setDirection(getRandomHorizontalDir());
 }
 
@@ -124,6 +124,7 @@ void kamillelonek_fsm::SickState::onUpdate(float dt)
 void kamillelonek_fsm::AttackState::onEnter(State* prev_state)
 {
     __super::onEnter(prev_state);
+	isUnderAttack = true;
     m_stateStartTime = g_game -> getTimeMs();
     getAI() -> setSpeed(0.f);
 }
@@ -151,4 +152,9 @@ void kamillelonek_fsm::AttackState::onUpdate(float dt)
 			getAI() -> hitFireball(enemyPosition);
 		}
 	}
+}
+
+void kamillelonek_fsm::AttackState::onLeave(State* next_state)
+{
+	isUnderAttack = false;
 }

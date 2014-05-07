@@ -18,14 +18,15 @@ namespace kamillelonek_fsm
 
         void onUpdate(float dt);
         void onEnter(State* prev_state);
-
+		
 		bool shouldBeHealed();
 		Character* enemyInRange();
 
         virtual void onTakeDamage();
-
+		
     protected:
         float m_stateStartTime;
+		bool isUnderAttack;
     };
 
     class PatrolState : public BaseState
@@ -44,6 +45,7 @@ namespace kamillelonek_fsm
 
         void onUpdate(float dt);
         void onEnter(State* prev_state);
+        void onLeave(State* next_state);
 
     private:
         Character* m_target;
